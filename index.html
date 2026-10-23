@@ -2,6 +2,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#0b0620">
 <title>PAC-MAN: CHILL ARCADE</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-title" content="PAC-MAN"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 :root{--bg:#0b0620;--ink:#f4f0ff;--dim:#9a90c4;--y:#ffd82e;--b:#3b6bff;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
@@ -278,5 +282,8 @@ function pollPad(){const list=getPads();if(!!list.length!==padOn){padOn=!!list.l
 let last=0;
 function loop(ts){requestAnimationFrame(loop);try{const dt=Math.min((ts-last)/1000||0,.05);last=ts;pollPad();update(dt);draw(ts/1000)}catch(e){console.warn(e)}}
 resetPos();resize();ui();requestAnimationFrame(loop);
+/* Offline: đăng ký service worker (cần HTTPS, ví dụ GitHub Pages) */
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+ addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
 })();
 </script></body></html>
